@@ -43,7 +43,6 @@ const App: React.FC = () => {
  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-   
     if (!isGameOver) {
       switch (e.key) {
         case 'ArrowUp':
@@ -61,7 +60,7 @@ const App: React.FC = () => {
 
   const movePlayer = ( dy: number) => {
     const [y,x] = gameStats.playerPosition.current
-    const newY = y+dy
+    const newY = y+dy 
     if(newY <= floors.length){
       if (newY >= 0 && newY < floors.length) {
         setGameStats({ ...gameStats, playerPosition: {
