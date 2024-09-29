@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.score {
+  font-family: "Tiny5";
+  font-size: 72px;
+  background: linear-gradient(45deg, gold, deeppink);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: huerotate 6s infinite linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+
+.game-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+.game-container:focus{
+  outline: none;
+}
+.gameover-block{
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.gameover-block__title{
+  z-index: 999;
+  font-family: "Tiny5";  text-shadow: -4px -4px 0px #2fbbfa;
+  background: repeating-linear-gradient(45deg, #6EB495, #6EB495 1px, white 2px, white 3px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 100px;
+  animation: pulse 2.5s  ;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.gameover-block__score{
+  color: #00a9f5;
+  font-family: "Tiny5";
+  font-size: 32px;
+  animation: appearance 2.7s;
+}
+
+.gameover-block__button{
+  animation: appearance 2.7s;
+  margin-top: 32px;
+}
+
+
+.button{
+  background-color: #00a9f5;
+  font-family: "Tiny5";
+  font-size: 32px;
+  color: #fff;
+  border: 1px solid #00a9f5;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+.button:hover{  
+  color: #00a9f5;
+  font-family: "Tiny5";
+  font-size: 32px;
+  background-color: #fff;
+  border: 1px solid #00a9f5;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    /* opacity: 0; */
+  }
+}
+@keyframes appearance {
+  0% {
+
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes huerotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
   }
 }

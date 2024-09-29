@@ -1,0 +1,22 @@
+.wordBlock{
+   display: flex;
+   align-items: center;
+   padding: 5px;
+}
+
+.wordInfo{
+   font-size: 12px;
+   color: #111;
+   margin-left: 4px;
+}
+
+.word{
+   background-color: #ccc;
+   border-radius: 4px;
+   padding: 3px;
+   color: #333;
+   font-size: 12px;
+   width: 14px;
+   font-weight: 700;
+   text-align: center;
+}
