@@ -1,13 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { Button } from './components/Button/Button';
-import { FloorBlock } from './components/floorBlock/FloorBlock';
 import { Game } from './components/Game/Game';
-import { WordActionInfo } from './components/WordActionInfo/WordActionInfo';
 import { WordsActionsList } from './components/WordsActionsList/WordsActionsList';
 import { generateNewObject } from './helpers/helpers';
-import { Floors, FloorType } from './types/IFloor';
-
+import { Floors } from './types/IFloor';
 
 const initial:Floors = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, generateNewObject(),  generateNewObject(),  generateNewObject(),  generateNewObject(),  generateNewObject(), generateNewObject(), generateNewObject(),  generateNewObject(), generateNewObject(), generateNewObject(), generateNewObject()],
@@ -40,9 +36,10 @@ const App: React.FC = () => {
     };
     score: number;
   }>(gameStatsInitial);
- 
+  const gameRef = React.useRef<HTMLDivElement | null>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e:any) => {
+   
     if (!isGameOver) {
       switch (e.key) {
         case 'ArrowUp':
@@ -60,7 +57,7 @@ const App: React.FC = () => {
 
   const movePlayer = ( dy: number) => {
     const [y,x] = gameStats.playerPosition.current
-    const newY = y+dy 
+    const newY = y+dy
     if(newY <= floors.length){
       if (newY >= 0 && newY < floors.length) {
         setGameStats({ ...gameStats, playerPosition: {
@@ -104,15 +101,17 @@ const App: React.FC = () => {
         return prev;
       });
     }, 40);
-  
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
+      window.removeEventListener('keydown', handleKeyDown);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
   }, [ gameStats]);
   return (
-    isGameOver === true ? <div className='gameover-block'>
+   <div   ref={gameRef}>
+     {isGameOver === true ? <div className='gameover-block'>
          <span className='gameover-block__title'>ИГРА ОКОНЧЕНА</span>
          <span className='gameover-block__score'>  Текущий счёт: {gameStats.score} </span>
          {localStorage.getItem('maxScore') !== null &&  <span className='gameover-block__score'> Рекорд: {localStorage.getItem('maxScore')} </span>}
@@ -126,19 +125,21 @@ const App: React.FC = () => {
           setFloors(initial)
         }}>начать заново</button>
       </div> 
-      :<div onKeyDown={handleKeyDown} className='game-container'  tabIndex={0}>
+      :<div  className='game-container'  tabIndex={0} >
           {isGameOver !== null ? <>
             <span className='score'>{gameStats.score}</span>
             <Game floors={floors}/></>: <button className='button' onClick={()=>{
-               setGameStats({playerPosition: {
-                prev: [4, 5],
-                current: [4, 5],
-              },
-              score: -1,
-              })
+               setGameStats(
+                {playerPosition: {
+                  prev: [4, 5],
+                  current: [4, 5],
+                },
+                score: -1,
+                })
                setIsGameOver(false)}}>Начать игру</button>}
           <WordsActionsList title='Управление'/>
-      </div>
+      </div>}
+   </div>
    
   );
 };
